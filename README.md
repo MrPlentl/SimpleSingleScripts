@@ -1,5 +1,5 @@
 # Simple Single Scripts
-### Cause sometimes I just need a Simple Solution
+### Cause sometimes I just need a Simple Solution with a Single Script
 
 ### Always Under Development
 I'm always adding new stuff. Though everything checked in should word... theoretically.
@@ -9,7 +9,7 @@ Mostly all Command Line based, everything in here is is not just simple and easy
 The point of these scripts is to execute their purpose while making the smallest footprint.
 
 ##Apache / PHP Updater
-### If you're a windows user like me and find it to be a pain to stay on the latest versions of Apache and PHP, this script should spped up the process.
+### If you're a Windows user like me and find it to be a pain to stay on the latest versions of Apache and PHP, this script should speed up the process.
 
 SETUP
  * OPEN: the Apache-PHP-Updater.php script and look for the configuration section
@@ -21,7 +21,7 @@ SETUP
  * NAVIGATE: Open and command line and navigate to the Apache-PHP-Updater.php script location.
  * RUN: php Apache-PHP-Updater.php - PHP must be added to your System Environment Path, otherwise you will need to list the full path to the php.exe
 
- Script Process
+Script Process
  * Welcome Message
  * Scan Current Directory for "http" and "php" zip files
  * Lists all available Apache / PHP Zip files
