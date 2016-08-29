@@ -1,47 +1,37 @@
 <?php
-# File:            Updater.php   
-# Current Ver:     
-# Function:       
-# Author:          Brandon Plentl (bp)
-# Environment:     PhpStorm - Windows 10
-# Code Cleaned:   
-# Code Validated: 
-# Notes:          
-# Fixes Needed:	  
-# Revisions:      
+# File:           Apache-PHP-Updater.php   
+# Current Ver:    1.0
+# Function:       To create an easy to use, light weight utility that can upgrade your Apache and PHP installations.
+# Author:         Brandon Plentl (bp)
+# Environment:    PhpStorm - Windows 10
+# Github URL:     https://github.com/MrPlentl/SimpleSingleScripts
+# Code Cleaned:   08/29/2016
+# Code Validated: 08/29/2016
+# Notes:          It would be nice to add the ability to auto download updates; plus, it would be really nice if I could shutdown the Apache Service from the script if I could get access.
+# Fixes Needed:	  None... for now.
+# Revisions:      1.0 - 2016-08-29 (bp) - First Release
 
 
 ### PROCESS ###
 /*
  * Welcome Message
  * Scan Current Directory for "http" and "php" zip files
- * List all available PHP Zip files
- * USER - Choose PHP Version to Install
- * MSG - Where is the current version of PHP located?
- * USER - Enters full path to PHP
- * PROCESS - Validate entry; respond with error or continue
- * List all available Apache Zip files
- * USER - Choose Apache Version to Install
- * MSG - Where is the current version of Apache located?
- * USER - Enters full path to Apache
- * PROCESS - Validate entry; respond with error or continue
- * IF EVERYTHING PASSES CONTINUE
- *
+ * Lists all available Apache / PHP Zip files
+ * USER - Chooses Apache / PHP Version to Install
  * MSG - The current versions of the following files will be reused from previous installations:
  * (Reused files are defined in the configuration section at the top of this script)
  * DISPLAY - ReusedFiles Array (This )
  * MSG - Ctrl->C to Quit
  * SLEEP - 5 seconds
- *
  * MSG - Starting the Update Process...
- * RUN - STOP Apache - When stopped, continue
- * RENAME - Old Apache to backup_<DIR NAME>
- * RENAME - Old PHP to backup_<DIR NAME>
- * EXTRACT - Apache to Processing Folder
- * SCAN - Look for the Config directory to validate Apache root
- * RENAME - Scan files for file names in the ReusedFiles Array and rename them to bu_<filename>
- * MOVE - Move the ReusedFiles from backup_<DIR NAME> to the Processing
- * MOVE - Processed Apache to the Previous Apache Directory
+ * RENAME - Old Apache to <DIR NAME>_backup_<timestamp>
+ * RENAME - Old PHP to <DIR NAME>_backup_<timestamp>.
+ * EXTRACT - Create __processing folder and Extract Apache/PHP to it
+ * SCAN - Look for the Config directory to validate Apache/PHP roota
+ * MOVE - Move the ReusedFiles from Backup <DIR NAME> to the Processing
+ * MOVE - Process Apache/PHP and move to the Previous Apache/PHP Install Directories
+ * DELETE __processing folder
+ * DONE
  */
 
 ///////////////////////  CONFIGURATION  ///////////////////////////////
@@ -179,12 +169,12 @@ function cleanAndDelete($dir) {
 }
 
 ###  END FUNCTIONS  ###
-
+echo PHP_EOL;
 
 #### START ####
-echo PHP_EOL . "#####################################################################################". PHP_EOL;
+echo "#####################################################################################". PHP_EOL;
 echo "#### WARNING: Make sure to STOP the Apache Service before continuing any further ####". PHP_EOL;
-echo "#####################################################################################". PHP_EOL. PHP_EOL;
+echo "#####################################################################################". PHP_EOL . PHP_EOL;
 sleep(8);
 // Welcome Message
 echo "--------------------------------" . PHP_EOL . "Starting the APACHE/PHP Updater" . PHP_EOL . "--------------------------------" . PHP_EOL;
