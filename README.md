@@ -18,7 +18,7 @@ SETUP
  * DOWNLOAD: the latest version of [Apache](https://www.apachelounge.com/download/) and [PHP](http://windows.php.net/download/) that matches your current installation.
  * MOVE: the Apache-PHP-Updater.php script and the downloaded Apache/PHP to the same location
  * STOP: the Apache Service. Without loading external dlls, this just didn't seem possible programmatically.
- * NAVIGATE: Open and command line and navigate to the Apache-PHP-Updater.php script location.
+ * NAVIGATE: Open a command line and navigate to the Apache-PHP-Updater.php script location.
  * RUN: php Apache-PHP-Updater.php - PHP must be added to your System Environment Path, otherwise you will need to list the full path to the php.exe
 
 Script Process

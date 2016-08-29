@@ -12,6 +12,17 @@
 # Revisions:      1.0 - 2016-08-29 (bp) - First Release
 
 
+/* ### SETUP ###
+ * Look for the configuration section below
+ * EDIT: Set the Apache and PHP locations, also add any configuration files you will want copied to the new installation.
+ * NOTE: If this is your first time running the script, set QUICK_INSTALL to FALSE to add sleep() breaks so you can see what is going on.
+ * DOWNLOAD: the latest version of [Apache](https://www.apachelounge.com/download/) and [PHP](http://windows.php.net/download/) that matches your current installation.
+ * MOVE: the Apache-PHP-Updater.php script and the downloaded Apache/PHP into the same location
+ * STOP: the Apache Service and close the Apache Monitor if running. Without loading external dlls, this just didn't seem possible programmatically.
+ * NAVIGATE: Open a command line and navigate to the Apache-PHP-Updater.php script location.
+ * RUN: php Apache-PHP-Updater.php - PHP must be added to your System Environment Path, otherwise you will need to list the full path to the php.exe
+ */
+
 ### PROCESS ###
 /*
  * Welcome Message
@@ -47,7 +58,7 @@ define("PHP_REUSED_FILES",array(
                                 "\\php-cli-context-menu.bat"
                             ));
 
-define("QUICK_INSTALL", TRUE);
+define("QUICK_INSTALL", FALSE);
 
 
 
