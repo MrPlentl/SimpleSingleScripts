@@ -183,10 +183,14 @@ function cleanAndDelete($dir) {
 echo PHP_EOL;
 
 #### START ####
+echo PHP_EOL;
 echo "#####################################################################################". PHP_EOL;
 echo "#### WARNING: Make sure to STOP the Apache Service before continuing any further ####". PHP_EOL;
-echo "#####################################################################################". PHP_EOL . PHP_EOL;
+echo "#####################################################################################". PHP_EOL;
+echo PHP_EOL;
+
 sleep(8);
+
 // Welcome Message
 echo "--------------------------------" . PHP_EOL . "Starting the APACHE/PHP Updater" . PHP_EOL . "--------------------------------" . PHP_EOL;
 if(QUICK_INSTALL===FALSE) echo "QUICK_INSTALL IS TURNED OFF" . PHP_EOL;
