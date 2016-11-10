@@ -44,8 +44,12 @@
  * DELETE __processing folder
  * DONE
  */
-
+ 
+ 
+///////////////////////////////////////////////////////////////////////
 ///////////////////////  CONFIGURATION  ///////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
 define("APACHE_LOCATION", "C:\\Apache\\Apache2.4");
 define("PHP_LOCATION", "C:\\PHP\\PHP7");
 define("APACHE_REUSED_FILES",array(
@@ -60,8 +64,7 @@ define("PHP_REUSED_FILES",array(
 
 define("QUICK_INSTALL", FALSE);
 
-
-
+///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
 ### Globals
@@ -100,8 +103,10 @@ function scanForZipFiles($current_directory,$apacheOnly=FALSE,$phpOnly=FALSE)
                 if (is_file($current_directory . "/" . $a) && $a != "." && $a != ".." && substr($a, strlen($a) - 3, 3) != ".db" && pathinfo($a, PATHINFO_EXTENSION) == "zip")      //The "." and ".." are directories.  "." is the current and ".." is the parent
                 {
                     if(strstr($a,"http")){
+                        echo "APACHE upgrade available" . PHP_EOL;
                         $hasApache = TRUE;
                     } else if (strstr($a,"php")) {
+                        echo "PHP upgrade available" . PHP_EOL;
                         $hasPHP = TRUE;
                     }
                     array_push($arr_ZipFiles, $a);
@@ -367,21 +372,24 @@ $keepGoing=TRUE;
 if(QUICK_INSTALL===FALSE) sleep(5);
 echo "--------------------".PHP_EOL." Beginning Upgrade ".PHP_EOL."--------------------".PHP_EOL;
 if(QUICK_INSTALL===FALSE) sleep(1);
-echo "RENAMING ". APACHE_LOCATION . " to " . APACHE_LOCATION."_backup" . PHP_EOL;
+if ($hasApache==TRUE) {
+    echo "###  Upgrading APACHE  ###" . PHP_EOL;
+    echo "RENAMING " . APACHE_LOCATION . " to " . APACHE_LOCATION . "_backup" . PHP_EOL;
 # RENAME - Old Apache to backup_<DIR NAME>
-if(file_exists (APACHE_LOCATION."_backup")) rename(APACHE_LOCATION."_backup", APACHE_LOCATION."_backup_" . date("Ymds"));
-rename(APACHE_LOCATION,APACHE_LOCATION."_backup");
-echo "EXTRACTING Apache... ".PHP_EOL;
+    if (file_exists(APACHE_LOCATION . "_backup")) rename(APACHE_LOCATION . "_backup", APACHE_LOCATION . "_backup_" . date("Ymds"));
+    rename(APACHE_LOCATION, APACHE_LOCATION . "_backup");
+    echo "EXTRACTING Apache... " . PHP_EOL;
 # EXTRACT - Apache to Processing Folder
-if(isset($apacheUpgradeFile)&&$apacheUpgradeFile!="") unzipAndUpgrade($apacheUpgradeFile,"APACHE");
-foreach (APACHE_REUSED_FILES as $a){
-    echo "Copying " . $a . " FROM " . APACHE_LOCATION."_backup" . " TO " .APACHE_LOCATION . PHP_EOL;
-    copy(APACHE_LOCATION."_backup".$a,APACHE_LOCATION.$a);
+    if (isset($apacheUpgradeFile) && $apacheUpgradeFile != "") unzipAndUpgrade($apacheUpgradeFile, "APACHE");
+    foreach (APACHE_REUSED_FILES as $a) {
+        echo "Copying " . $a . " FROM " . APACHE_LOCATION . "_backup" . " TO " . APACHE_LOCATION . PHP_EOL;
+        copy(APACHE_LOCATION . "_backup" . $a, APACHE_LOCATION . $a);
+    }
+
+    echo "------------------" . PHP_EOL . " Apache Upgrade Complete " . PHP_EOL . "------------------" . PHP_EOL;
+
+    if (QUICK_INSTALL === FALSE) sleep(5);
 }
-
-echo "------------------".PHP_EOL." Apache Upgrade Complete ".PHP_EOL."------------------".PHP_EOL;
-
-if(QUICK_INSTALL===FALSE) sleep(5);
 
 # RENAME - Old PHP to backup_<DIR NAME>
 echo "RENAMING ". PHP_LOCATION . " to " . PHP_LOCATION."_backup" . PHP_EOL;
