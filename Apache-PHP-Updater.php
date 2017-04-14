@@ -54,12 +54,15 @@ define("APACHE_LOCATION", "C:\\Apache\\Apache2.4");
 define("PHP_LOCATION", "C:\\PHP\\PHP7");
 define("APACHE_REUSED_FILES",array(
                                 "\\conf\\httpd.conf",
-                                "\\conf\\extra\\httpd-vhosts.conf"
+                                "\\conf\\extra\\httpd-vhosts.conf",
+                                "\\SHORTCUTS"
                             ));
 
 define("PHP_REUSED_FILES",array(
                                 "\\php.ini",
-                                "\\php-cli-context-menu.bat"
+                                "\\php-cli-context-menu.bat",
+								"\\ext\\php_pdo_sqlsrv.dll",
+								"\\ext\\php_sqlsrv.dll"
                             ));
 
 define("QUICK_INSTALL", FALSE);
@@ -103,10 +106,10 @@ function scanForZipFiles($current_directory,$apacheOnly=FALSE,$phpOnly=FALSE)
                 if (is_file($current_directory . "/" . $a) && $a != "." && $a != ".." && substr($a, strlen($a) - 3, 3) != ".db" && pathinfo($a, PATHINFO_EXTENSION) == "zip")      //The "." and ".." are directories.  "." is the current and ".." is the parent
                 {
                     if(strstr($a,"http")){
-                        echo "APACHE upgrade available" . PHP_EOL;
+                        echo "## APACHE upgrade available ##" . PHP_EOL;
                         $hasApache = TRUE;
                     } else if (strstr($a,"php")) {
-                        echo "PHP upgrade available" . PHP_EOL;
+                        echo "## PHP upgrade available ##" . PHP_EOL;
                         $hasPHP = TRUE;
                     }
                     array_push($arr_ZipFiles, $a);
@@ -383,7 +386,13 @@ if ($hasApache==TRUE) {
     if (isset($apacheUpgradeFile) && $apacheUpgradeFile != "") unzipAndUpgrade($apacheUpgradeFile, "APACHE");
     foreach (APACHE_REUSED_FILES as $a) {
         echo "Copying " . $a . " FROM " . APACHE_LOCATION . "_backup" . " TO " . APACHE_LOCATION . PHP_EOL;
-        copy(APACHE_LOCATION . "_backup" . $a, APACHE_LOCATION . $a);
+		
+		if(is_dir(APACHE_LOCATION . "_backup" . $a)){
+			rename(APACHE_LOCATION . "_backup" . $a, APACHE_LOCATION . $a);
+			mkdir(APACHE_LOCATION . "_backup" . $a . "_moved");
+		} else {
+			copy(APACHE_LOCATION . "_backup" . $a, APACHE_LOCATION . $a);
+		}
     }
 
     echo "------------------" . PHP_EOL . " Apache Upgrade Complete " . PHP_EOL . "------------------" . PHP_EOL;
@@ -400,6 +409,14 @@ echo "EXTRACTING PHP... ".PHP_EOL;
 if(isset($phpUpgradeFile)&&$phpUpgradeFile!="") unzipAndUpgrade($phpUpgradeFile,"PHP");
 foreach (PHP_REUSED_FILES as $a){
     echo "Copying " . $a . " FROM " . PHP_LOCATION."_backup" . " TO " .PHP_LOCATION . PHP_EOL;
+	
+	if(is_dir(PHP_LOCATION . "_backup" . $a)){
+		rename(PHP_LOCATION . "_backup" . $a, PHP_LOCATION . $a);
+		mkdir(PHP_LOCATION . "_backup" . $a . "_moved");
+	} else {
+		copy(PHP_LOCATION . "_backup" . $a, PHP_LOCATION . $a);
+	}
+		
     copy(PHP_LOCATION."_backup".$a,PHP_LOCATION.$a);
 }
 
