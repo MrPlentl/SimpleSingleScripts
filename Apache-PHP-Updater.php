@@ -23,29 +23,7 @@
  * RUN: php Apache-PHP-Updater.php - PHP must be added to your System Environment Path, otherwise you will need to list the full path to the php.exe
  */
 
-### PROCESS ###
-/*
- * Welcome Message
- * Scan Current Directory for "http" and "php" zip files
- * Lists all available Apache / PHP Zip files
- * USER - Chooses Apache / PHP Version to Install
- * MSG - The current versions of the following files will be reused from previous installations:
- * (Reused files are defined in the configuration section at the top of this script)
- * DISPLAY - ReusedFiles Array (This )
- * MSG - Ctrl->C to Quit
- * SLEEP - 5 seconds
- * MSG - Starting the Update Process...
- * RENAME - Old Apache to <DIR NAME>_backup_<timestamp>
- * RENAME - Old PHP to <DIR NAME>_backup_<timestamp>.
- * EXTRACT - Create __processing folder and Extract Apache/PHP to it
- * SCAN - Look for the Config directory to validate Apache/PHP roota
- * MOVE - Move the ReusedFiles from Backup <DIR NAME> to the Processing
- * MOVE - Process Apache/PHP and move to the Previous Apache/PHP Install Directories
- * DELETE __processing folder
- * DONE
- */
- 
- 
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////  CONFIGURATION  ///////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -70,7 +48,30 @@ define("QUICK_INSTALL", FALSE);
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
-### Globals
+
+### PROCESS ###
+/*
+ * Welcome Message
+ * Scan Current Directory for "http" and "php" zip files
+ * Lists all available Apache / PHP Zip files
+ * USER - Chooses Apache / PHP Version to Install
+ * MSG - The current versions of the following files will be reused from previous installations:
+ * (Reused files are defined in the configuration section at the top of this script)
+ * DISPLAY - ReusedFiles Array (This )
+ * MSG - Ctrl->C to Quit
+ * SLEEP - 5 seconds
+ * MSG - Starting the Update Process...
+ * RENAME - Old Apache to <DIR NAME>_backup_<timestamp>
+ * RENAME - Old PHP to <DIR NAME>_backup_<timestamp>.
+ * EXTRACT - Create __processing folder and Extract Apache/PHP to it
+ * SCAN - Look for the Config directory to validate Apache/PHP roota
+ * MOVE - Move the ReusedFiles from Backup <DIR NAME> to the Processing
+ * MOVE - Process Apache/PHP and move to the Previous Apache/PHP Install Directories
+ * DELETE __processing folder
+ * DONE
+ */
+
+### Global Variables ###
 $error=array(FALSE,"No Errors");
 $subDirectoryCount=0;
 $keepGoing=TRUE;
@@ -259,7 +260,6 @@ if ($hasApache==TRUE){
             }
         }
     } while ( $keepGoing == TRUE);
-
 }
 
 if($hasPHP==TRUE){
@@ -299,7 +299,6 @@ if($hasPHP==TRUE){
         }
 
     } while ( $keepGoing == TRUE);
-
 }
 
 if($error[0]===FALSE) {
@@ -424,7 +423,7 @@ echo "------------------".PHP_EOL." PHP Upgrade Complete ".PHP_EOL."------------
 
 cleanAndDelete("__processing");
 
-
-echo PHP_EOL . "######################################". PHP_EOL;
-echo "#### YOU CAN NOW RESTART APACHE ####". PHP_EOL;
+echo PHP_EOL;
+echo "######################################". PHP_EOL;
+echo "#### YOU CAN NOW RESTART APACHE ######". PHP_EOL;
 echo "######################################". PHP_EOL. PHP_EOL;
