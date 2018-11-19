@@ -3,6 +3,7 @@
 $array_ignored_files = array(
     ".",
     "..",
+    ".DS_Store",
     basename(__FILE__)
 );
 
